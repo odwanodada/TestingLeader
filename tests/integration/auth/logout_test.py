@@ -21,9 +21,9 @@ class TestLogOut(BaseTest):
 
 
                 response = self.app.post('/sign-up',
-                                         data=dict(email="odwa@gmail.com", firstName="odwa", password1="10111", password2="10111"), follow_redirects=True)
+                                         data=dict(email="og@gmail.com", firstName="og", password1="1234567", password2="1234567"), follow_redirects=True)
 
-                user = db.session.query(User).filter_by(email="odwa@gmail.com").first()
+                user = db.session.query(User).filter_by(email="og@gmail.com").first()
 
                 self.assertTrue(user)
 
@@ -31,7 +31,7 @@ class TestLogOut(BaseTest):
 
 
                 res = self.app.post('/log-in',
-                                    data=dict(email="odwa@gmail.com", password="10111"), follow_redirects=True)
+                                    data=dict(email="og@gmail.com", password="1234567"), follow_redirects=True)
 
                 self.assertIn(b'Logged in successfully', res.data)
 
