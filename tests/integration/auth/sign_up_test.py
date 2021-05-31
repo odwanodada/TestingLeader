@@ -83,3 +83,26 @@ class TestSignUp(BaseTest):
             self.assertTrue(user)
 
 
+    def test_seven_char(self):
+        with self.app:
+            response = self.app.post('/sign-up',
+                                     data=dict(email="nodadaa@gmail.com", firstName="Nodadaa", password1="10111", password2="10111"), follow_redirects=True)
+            self.assertIn(b'Password must be at least 7 characters', response.data)
+            self.assertEqual(response.status_code, 200)
+
+
+    def test_already_exists(self):
+        with self.app:
+            response = self.app.post('/sign-up',
+                                    data=dict(email="odwa@gmail.com", firstName="Odwa", password1="abc10111", password2="abc10111"), follow_redirects=True)
+
+            user = db.session.query(User).filter_by(email="odwa@gmail.com")
+
+            self.assertTrue(user)
+
+            response = self.app.post('/sign-up',
+                                     data=dict(email="odwa@gmail.com", firstName="Odwa", password1="abc10111", password2="abc10111"), follow_redirects=True)
+
+            self.assertIn(b'Email already in use', response.data)
+
+

@@ -7,6 +7,7 @@ from tests.base_test import db
 
 class TestLogIn(BaseTest):
 
+
     def test_sign_in(self):
         with self.app:
             with self.app_context:
@@ -27,6 +28,7 @@ class TestLogIn(BaseTest):
                 self.assertIn(b'Logged in successfully', res.data)
 
                 self.assertEqual(res.status_code, 200)
+
 
     def test_email_unknown(self):
         with self.app:
